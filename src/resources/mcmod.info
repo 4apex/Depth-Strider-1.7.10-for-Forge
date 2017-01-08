@@ -1,0 +1,16 @@
+[
+{
+  "modid": "depthstrider",
+  "name": "DepthStrider",
+  "description": "Adds the Depth Strider enchantment for 1.7.10",
+  "version": "1.0",
+  "mcversion": "1.7.10",
+  "url": "http://cbxn.io/",
+  "updateUrl": "http://cbxn.io",
+  "authorList": ["cbxn"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
