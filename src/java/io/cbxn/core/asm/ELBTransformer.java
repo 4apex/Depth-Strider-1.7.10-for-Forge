@@ -13,19 +13,19 @@ import static org.objectweb.asm.Opcodes.*;
  */
 public class ELBTransformer implements IClassTransformer
 {
-    private static final String classBeingTransformed = "EntityLivingBase";
+    private final String ENTITY_LIVING_BASE = "EntityLivingBase";
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes)
     {
-        if (transformedName.toLowerCase().contains("entityliving"))
-            System.out.println("[ApexCoreMod] Looking for class ("+name+" - " + transformedName +")");
         boolean isObfuscated = !name.equals(transformedName);
-        int index = transformedName.contains(classBeingTransformed)?0:-1;
-        return index != -1 ? transform(index, bytes, isObfuscated) : bytes;
+
+        return transformedName.contains(ENTITY_LIVING_BASE)
+                    ? transform(0, bytes, isObfuscated)
+                    : bytes;
     }
 
-    private static byte[] transform(int index, byte[] classBeingTransformed, boolean isObfuscated)
+    private byte[] transform(int index, byte[] classBeingTransformed, boolean isObfuscated)
     {
         try
         {
@@ -51,12 +51,11 @@ public class ELBTransformer implements IClassTransformer
         return classBeingTransformed;
     }
 
-    private static void transformEntityLivingBase(ClassNode classNode, boolean isObfuscated)
+    private void transformEntityLivingBase(ClassNode classNode, boolean isObfuscated)
     {
         final String MOVEENTITYWITHHEADING = isObfuscated ? "e" : "func_70612_e";
         final String MOVEENTITYWITHHEADING_DESC = "(FF)V";
 
-        System.out.println("[ApexCoreMod] Starting to transform EntityLivingBase");
         for (MethodNode method : classNode.methods)
         {
             if (method.name.equals(MOVEENTITYWITHHEADING) && method.desc.equals(MOVEENTITYWITHHEADING_DESC))
